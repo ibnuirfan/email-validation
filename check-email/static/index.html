@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<style>
+.centered{
+    text-align: center;
+}
+.mtop10{
+    margin-top:10px;
+}
+</style>
+
+<html>
+    <body>
+        <div class="centered">
+
+            <label for="email">Email:</label><br>
+            <input type="text" id="email" name="email" value=""><br>
+            <input class="mtop10" type="submit" value="Search" onclick=handleSubmit()>
+
+            <div class="mtop10" id="result"></div>
+
+        </div>
+    </body>
+</html>
+
+<script>
+    var cds = "{{.cds}}";
+    cdsJs = JSON.parse(cds);
+    console.log(cdsJs);
+
+    function handleSubmit() {
+        var emailInput = document.getElementById("email").value;
+        var result = "Your email not found in our database, you're good to go!";
+
+        for (var i = cdsJs.length - 1; i >= 0; i--) {
+            if (cdsJs[i].email == emailInput) {
+                result = "Mr. "+cdsJs[i].firstname+" "+cdsJs[i].lastname+", your email have been compromised.";
+                break;
+            }
+        }
+
+        document.getElementById("result").innerHTML = result;
+    }
+</script>
+
+
